@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="loginApp">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" href="static/lib/bootstrap.css">
+    <link rel="stylesheet" href="static/css/login.css">
+</head>
+<body ng-controller="loginController">
+    <div class="row logo">
+        <img src="static/imgs/logo.png" alt=""><b>欢迎登录</b>
+    </div>
+    <div class="content">
+        <div class="col-sm-offset-8 col-sm-3 formBox">
+            <p class="accout">账户登录</p>
+            <form name="loginForm" ng-submit="submitForm()" class="container col-sm-12" method="post">
+                <div class="form-group">
+                    <div class="warn"><img src="static/imgs/warn.png" alt="">公共场所不建议自动登录，以防账号丢失</div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                        <input name="userName" type="text"
+                               ng-model="userData.userName"
+                               class="form-control"
+                               ng-blur="checkUserName()"
+                               ng-class="{ error: !userData.userNameValid && loginForm.userName.$touched }"
+                               placeholder="用户名">
+                    </div>
+                    <p class="error" ng-if="loginForm.userName.$error.required || !userData.userNameValid">
+                        您输入的用户名不存在，请重新输入
+                    </p>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                        <input name="password" type="password"
+                               ng-model="userData.password"
+                               required
+                               ng-class="{ error: (loginForm.password.$invalid || !userData.passwordValid) && loginForm.userName.$touched }"
+                               class="form-control"
+                               placeholder="密码">
+                    </div>
+                    <p class="error" ng-if="
+                            loginForm.password.$error.required &&
+                            loginForm.password.$touched">
+                        密码不能为空！
+                    </p>
+                    <p class="error" ng-show="!userData.passwordValid">
+                        密码不正确！
+                    </p>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">自动登录
+                        </label>
+                        <a href="#" id="forgetPW">忘记密码</a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button id="btn-login" type="submit" class="form-control btn btn-primary"><b>登陆</b></button>
+                </div>
+            </form>
+            <div class="toReg row"><a href="register"><img src="static/imgs/icon-toReg.png" alt="">立即注册</a></div>
+        </div>
+    </div>
+    <script src="static/lib/angular.js"></script>
+    <script src="static/js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="regApp">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+    <link rel="stylesheet" href="static/lib/bootstrap.css">
+    <link rel="stylesheet" href="static/css/register.css">
+</head>
+<body>
+    <div class="row logo">
+        <img src="static/imgs/logo.png" alt=""><b>欢迎注册</b>
+    </div>
+    <div class="content" ng-controller="signUpController">
+        <div class="col-sm-offset-8 col-sm-3 formBox">
+            <p class="accout">账户注册</p>
+            <form name="signUpForm" ng-submit="submitForm()" class="container col-sm-12" method="post">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                        <input name="userName"
+                               ng-model="userData.userName"
+                               ng-minlength="3"
+                               ng-maxlength="20"
+                               required
+                               ng-class="{ error:signUpForm.userName.$invalid && signUpForm.userName.$touched }"
+                               ng-blur="checkUserName()"
+                               type="text"
+                               class="form-control"
+                               placeholder="用户名">
+                    </div>
+                    <p class="error" ng-if="
+                            signUpForm.userName.$error.required &&
+                            signUpForm.userName.$touched">
+                        用户名不能为空！
+                    </p>
+                    <p class="error" ng-if="
+                            (signUpForm.userName.$error.minlength ||
+                            signUpForm.userName.$error.maxlength) &&
+                            signUpForm.userName.$touched">
+                        用户名长度应在3-20位之间
+                    </p>
+                    <p class="error" ng-if="!signUpForm.userName.$error.required && !userData.userNameValid">
+                        您输入的用户名已存在，请重新输入
+                    </p>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                        <input name="password"
+                               ng-model="userData.password"
+                               ng-minlength="6"
+                               ng-maxlength="255"
+                               required
+                               ng-class="{ error:signUpForm.password.$invalid && signUpForm.password.$touched }"
+                               type="password"
+                               class="form-control"
+                               placeholder="密码">
+                    </div>
+                    <p class="error" ng-if="
+                            signUpForm.password.$error.required &&
+                            signUpForm.password.$touched">
+                        密码不能为空！
+                    </p>
+                    <p class="error" ng-if="
+                            (signUpForm.password.$error.minlength ||
+                            signUpForm.password.$error.maxlength) &&
+                            signUpForm.password.$touched">
+                        密码长度应在6-255位之间
+                    </p>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                        <input name="re_password"
+                               ng-model="userData.re_password"
+                               required
+                               ng-class="{ error:signUpForm.password.$invalid && signUpForm.password.$touched }"
+                               type="password"
+                               class="form-control"
+                               placeholder="确认密码">
+                    </div>
+                    <p class="error" ng-if="
+                            signUpForm.re_password.$error.required &&
+                            signUpForm.re_password.$touched">
+                        确认密码不能为空！
+                    </p>
+                    <p class="error" ng-show="
+                            userData.re_password!=userData.password &&
+                            signUpForm.re_password.$touched">
+                        两次密码不一致！
+                    </p>
+                </div>
+                <div class="form-group">
+                    <button id="btn-register" type="submit" class="form-control btn btn-primary"><b>注册</b></button>
+                </div>
+            </form>
+            <div class="toLogin row"><a href="login"><img src="static/imgs/icon-toLogin.png" alt="">已有账号-登陆</a></div>
+        </div>
+    </div>
+    <script src="static/lib/angular.js"></script>
+    <script src="static/js/register.js"></script>
+</body>
+</html>
